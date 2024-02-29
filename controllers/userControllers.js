@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User } = require('../models/User');
 
 module.exports = {
     // Get all users
@@ -35,7 +35,7 @@ module.exports = {
     async createUser( req, res) { 
         try {
             const user = await User.create(req.body);
-            res.json(user);
+            res.status(201).json(user);
         } catch (err) {
             console.log(err);
             res.status(500).json(err);
