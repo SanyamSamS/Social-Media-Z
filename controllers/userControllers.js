@@ -1,4 +1,4 @@
-const { User } = require('../models/User');
+const { User } = require('../models');
 
 module.exports = {
     // Get all users
@@ -13,7 +13,7 @@ module.exports = {
     },
 
     // Get user by ID
-    async getUserById({ params }, res) {
+    async getUserById(req, res) {
         try {
             const user = await User.findOne({ _id: req.params.userId })
                 .select('-__v')
@@ -43,7 +43,7 @@ module.exports = {
     },
 
     // Update a user
-    async updateUser({ params, body }, res) {
+    async updateUser(req, res) {
         try {
             const user = await User.findByIdAndUpdate(
                 { _id: req.params.userId},
@@ -63,7 +63,7 @@ module.exports = {
     },
 
     // Delete a user
-    async deleteUser({ params }, res) {
+    async deleteUser(req, res) {
         try {
             const user = await User.findByIdAndDelete({ _id: req.params.userId });
             if (!user) {
@@ -77,7 +77,7 @@ module.exports = {
     },
 
     // Add a friend
-    async addFriend({ params }, res) { 
+    async addFriend(req, res) { 
         try {
             const user = await User.findByIdAndUpdate(
                 { _id: req.params.userId },
@@ -95,7 +95,7 @@ module.exports = {
     },
 
     // Delete a friend
-    async deleteFriend({ params }, res) {
+    async deleteFriend(req, res) {
         try {
             const user = await User.findByIdAndUpdate(
                 { _id: req.params.userId },
@@ -105,7 +105,7 @@ module.exports = {
             if (!user) {
                 return res.status(404).json({ message: 'No user found with this ID!' });
             }
-            res.json(user);
+            res.json({message: 'Friend deleted!'});
         } catch (err) {
             console.log(err);
             res.status(500).json(err);

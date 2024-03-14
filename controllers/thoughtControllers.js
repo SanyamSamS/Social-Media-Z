@@ -1,4 +1,4 @@
-const { Thought, User } = require('../models/Thought');
+const { Thought, User } = require('../models');
 
 module.exports = {
     // Get all thoughts
@@ -13,7 +13,7 @@ module.exports = {
     },
 
     // Get thought by ID
-    async getThoughtById({ params }, res) {
+    async getThoughtById(req, res) {
         try {
             const thought = await Thought.findOne({ _id: req.params.thoughtId })
                 .select('-__v')
@@ -47,7 +47,7 @@ module.exports = {
     },
 
     // Update a thought
-    async updateThought({ params, body }, res) {
+    async updateThought(req, res) {
         try {
             const thought = await Thought.findByIdAndUpdate(
                 { _id: req.params.thoughtId},
@@ -67,7 +67,7 @@ module.exports = {
     },
 
     // Delete a thought
-    async deleteThought({ params }, res) {
+    async deleteThought(req, res) {
         try {
             const thought = await Thought.findByIdAndDelete({ _id: req.params.thoughtId });
 
@@ -89,11 +89,11 @@ module.exports = {
     },
 
     // Add a reaction
-    async addReaction({ params, body }, res) {
+    async addReaction(req, res) {
         try {
             const thought = await Thought.findOneAndUpdate(
                 { _id: req.params.thoughtId },
-                { $addToSet: { reactions: body } },
+                { $addToSet: { reactions: req.body } },
                 { new: true, runValidators: true}
             );
 
@@ -109,7 +109,7 @@ module.exports = {
     },
 
     // Delete a reaction
-    async deleteReaction({ params }, res) {
+    async deleteReaction(req, res) {
         try {
             const thought = await Thought.findOneAndUpdate(
                 { _id: req.params.thoughtId },
