@@ -16,7 +16,7 @@ This Social Media Z API is a backend service designed for social media applicati
 - Mongoose
 
 ## Walkthrough Video 
-[Video]()
+[Video](https://drive.google.com/file/d/1T56QUcWZwcdVHCny0CjWQWfPzKdxFXNw/view)
 
 ## License 
 This project is licensed under the MIT License.
